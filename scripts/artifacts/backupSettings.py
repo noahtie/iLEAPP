@@ -41,7 +41,7 @@ def backupSettings(files_found, report_folder, seeker, wrap_text, timezone_offse
             data_list.append((key,val))
             device_info("Backup Settings", "Cloud Backup Enabled", val, source_path)
         else:
-            data_list.append((key, val ))
+            data_list.append((key, val))
                 
     data_headers = ('Property', 'Property Value')
     return data_headers, data_list, source_path            

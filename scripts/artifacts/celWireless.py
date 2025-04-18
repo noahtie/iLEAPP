@@ -17,7 +17,7 @@ __artifacts_v2__ = {
 import os
 import plistlib
 
-from scripts.ilapfuncs import device_info, artifact_processor
+from scripts.ilapfuncs import device_info, artifact_processor, logfunc
 
 @artifact_processor
 def celWireless(files_found, report_folder, seeker, wrap_text, timezone_offset):
@@ -26,7 +26,11 @@ def celWireless(files_found, report_folder, seeker, wrap_text, timezone_offset):
         basename = os.path.basename(filepath)
         if basename in ["com.apple.commcenter.device_specific_nobackup.plist", "com.apple.commcenter.plist"]:
             with open(filepath, "rb") as p:
-                plist = plistlib.load(p)
+                try:
+                    plist = plistlib.load(p)
+                except Exception as e:
+                    logfunc(f"Error reading plist file {filepath}")
+                    continue
                 for key, val in plist.items():
                     data_list.append((key, str(val), filepath))
                     if key == "ReportedPhoneNumber":

@@ -102,4 +102,4 @@ instance/
 .scrapy
 .ipynb_checkpoints
 .python-version
-
+*.bat
